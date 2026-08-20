@@ -93,7 +93,7 @@ export default async function DashboardPage() {
           label="Assets under management"
           value={kpis.totalAum}
           displayValue={<span className="tabular">₹{compactINR(kpis.totalAum)}</span>}
-          icon={IndianRupee}
+          icon={<IndianRupee className="size-[18px]" />}
           iconColor="var(--chart-1)"
           spark={kpis.aumTrend}
           delta={4.2}
@@ -103,7 +103,7 @@ export default async function DashboardPage() {
         <StatTile
           label="Clients needing attention"
           value={kpis.clientsNeedingAttention}
-          icon={AlertTriangle}
+          icon={<AlertTriangle className="size-[18px]" />}
           iconColor="var(--warning)"
           footnote={`of ${kpis.clientCount} clients`}
           accent="var(--warning)"
@@ -111,7 +111,7 @@ export default async function DashboardPage() {
         <StatTile
           label="Overdue reviews"
           value={kpis.overdueReviews}
-          icon={CalendarClock}
+          icon={<CalendarClock className="size-[18px]" />}
           iconColor="var(--danger)"
           footnote="review older than 12 months"
           accent="var(--danger)"
@@ -119,7 +119,7 @@ export default async function DashboardPage() {
         <StatTile
           label="Open follow-ups"
           value={kpis.openFollowUps}
-          icon={ListChecks}
+          icon={<ListChecks className="size-[18px]" />}
           iconColor="var(--chart-2)"
           footnote={`${kpis.openOpportunities} open opportunities`}
           accent="var(--chart-2)"
