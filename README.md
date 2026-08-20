@@ -53,11 +53,18 @@ otherwise — a missing AWS key should never break a sales demo.
 
 3. **Create the schema and load the demo dataset**
    ```bash
-   npm run setup      # = db:push + db:seed
+   npm run db:push
+   npx tsx --env-file=.env scripts/seed.ts
    ```
    `db:seed` is deterministic — the same 8 named demo scenarios and the same
    ~80 clients every time, which matters when a demo script names specific
    clients (Rajesh Sharma, Neha Shah, Kavita Desai, …).
+
+   > **Why not `npm run setup`?** The `setup` script calls `npm run db:seed`,
+   > which runs `tsx scripts/seed.ts` without loading `.env`. That works on
+   > Render (env vars come from the platform) but locally `DATABASE_URL` won't
+   > be in scope. Either run the two commands above, or `export DATABASE_URL=...`
+   > in your shell first, then `npm run setup` will work too.
 
 4. **Run it**
    ```bash
@@ -69,7 +76,13 @@ otherwise — a missing AWS key should never break a sales demo.
 ### Resetting the demo data
 
 ```bash
-npm run db:reset   # drops and recreates all tables, then reseeds
+npx tsx --env-file=.env scripts/seed.ts --reset
+```
+
+Or with `DATABASE_URL` already exported in your shell:
+
+```bash
+npm run db:reset
 ```
 
 ## Demo script (7–10 minutes)
@@ -107,15 +120,20 @@ builds and runs the app. From the Render dashboard:
 2. Render auto-generates `SESSION_SECRET` and wires `DATABASE_URL` from the
    provisioned database. Leave the AWS_* variables blank unless you want real
    S3 document storage.
-3. After the first deploy, open a shell on the service (or run once locally
-   against the same `DATABASE_URL`) and run:
+3. After the first deploy, open a shell on the service and run:
    ```bash
-   npm run setup
+   npm run db:push
+   npm run db:seed
    ```
-   to create the schema and load the demo dataset. This is not run
-   automatically on every deploy, so redeploys don't silently wipe demo data
-   someone added during a live session.
+   to create the schema and load the demo dataset. On Render, `npm run db:seed`
+   works directly because `DATABASE_URL` is injected by the platform — no `.env`
+   file needed. This is not run automatically on every deploy, so redeploys don't
+   silently wipe demo data someone added during a live session.
 4. Visit the service URL and sign in as any seeded persona.
+
+> **Warm up before any live demo.** The free-tier service spins down after
+> 15 minutes idle and takes 30–60 seconds to wake. Load the URL once before
+> presenting.
 
 ## Project structure
 
