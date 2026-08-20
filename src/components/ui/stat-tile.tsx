@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import type { LucideIcon } from "lucide-react";
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 import { Card } from "./primitives";
 import { cn } from "@/lib/utils";
@@ -111,7 +110,7 @@ export function StatTile({
   label,
   value,
   displayValue,
-  icon: Icon,
+  icon,
   iconColor = "var(--brand)",
   delta,
   deltaInvert,
@@ -128,7 +127,7 @@ export function StatTile({
   label: string;
   value: number;
   displayValue?: ReactNode;
-  icon?: LucideIcon;
+  icon?: ReactNode;
   iconColor?: string;
   delta?: number;
   deltaInvert?: boolean;
@@ -154,7 +153,7 @@ export function StatTile({
             )}
           </div>
         </div>
-        {Icon && (
+        {icon && (
           <span
             className="flex size-9 shrink-0 items-center justify-center rounded-lg"
             style={{
@@ -162,7 +161,7 @@ export function StatTile({
               color: iconColor,
             }}
           >
-            <Icon className="size-[18px]" />
+            {icon}
           </span>
         )}
       </div>
