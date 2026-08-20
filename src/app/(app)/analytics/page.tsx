@@ -64,14 +64,14 @@ export default async function AnalyticsPage() {
           label="Total AUM"
           value={kpis.totalAum}
           displayValue={<span className="tabular">₹{compactINR(kpis.totalAum)}</span>}
-          icon={IndianRupee}
+          icon={<IndianRupee className="size-[18px]" />}
           iconColor="var(--chart-1)"
         />
-        <StatTile label="Relationship managers" value={rmRows.length} icon={Users} iconColor="var(--chart-2)" />
+        <StatTile label="Relationship managers" value={rmRows.length} icon={<Users className="size-[18px]" />} iconColor="var(--chart-2)" />
         <StatTile
           label="Clients needing attention"
           value={kpis.clientsNeedingAttention}
-          icon={AlertTriangle}
+          icon={<AlertTriangle className="size-[18px]" />}
           iconColor="var(--warning)"
         />
       </div>
