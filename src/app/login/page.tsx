@@ -26,6 +26,7 @@ export default async function LoginPage() {
       .from(users)
       .orderBy(asc(users.role), asc(users.name));
   } catch (err) {
+    console.error("Login page DB error:", err);
     dbError = true;
   }
 
