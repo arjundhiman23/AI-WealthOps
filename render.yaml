@@ -1,0 +1,33 @@
+databases:
+  - name: wealthops-db
+    plan: free
+    postgresMajorVersion: "16"
+
+services:
+  - type: web
+    name: wealthops-ai
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start
+    healthCheckPath: /login
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: wealthops-db
+          property: connectionString
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: NODE_ENV
+        value: production
+      # Optional — set these in the Render dashboard to enable S3 document
+      # storage. Left unset, the app runs in metadata-only mode.
+      - key: S3_BUCKET
+        sync: false
+      - key: AWS_REGION
+        value: ap-south-1
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
