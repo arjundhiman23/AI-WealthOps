@@ -8,8 +8,8 @@
     "start": "next start -p ${PORT:-3000}",
     "typecheck": "tsc --noEmit",
     "db:push": "drizzle-kit push",
-    "db:seed": "tsx --env-file=.env scripts/seed.ts",
-    "db:reset": "tsx --env-file=.env scripts/seed.ts --reset",
+    "db:seed": "tsx scripts/seed.ts",
+    "db:reset": "tsx scripts/seed.ts --reset",
     "setup": "npm run db:push && npm run db:seed"
   },
   "dependencies": {
